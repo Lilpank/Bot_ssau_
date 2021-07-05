@@ -1,12 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
 from parser_url.settings_parser import HEADER
+from datetime import datetime
 
 """
-url = 'https://ssau.ru/rasp?groupId=531874164&selectedWeek=2&selectedWeekday=1'
+url=https://ssau.ru/rasp?groupId=531874164&selectedWeek=2&selectedWeekday=1
 Класс предназанчен для парсинга данных из url, в данном случае он содержит расписание на сегодняшний день.
 для создания объекта требуется url адрес.
 """
+
+
+class Exception_day(Exception):
+    def __init__(self, text):
+        self.txt = text
 
 
 class Parser:
@@ -24,9 +30,11 @@ class Parser:
         data = list()
         for block in block_data_lesson:
             data.append(block.get_text())
-        # day_of_week содержит дни недели из таблицы, в дальнейшем это будет ключом dict
+            print(block.get_text())
+        # day_of_week содержит даты из таблицы в формате дд.мм.гг, в дальнейшем это будет ключом dict
         self.day_of_week: list = []
-        self.day_of_week += [day for day in data[1:7]]
+        for day in [day for day in data[1:7]]:
+            self.day_of_week.append(day.split()[1])
 
         # структура у weekly_schedule = { 'day': 'schedule'}
         self.weekly_schedule: dict = {}
@@ -56,7 +64,8 @@ class Parser:
         self.weekly_schedule[self.day_of_week[5]] = Saturday
 
     def get_weekly_schedule(self) -> str:  # метод возвращающий боту нужную информацию.
-        schledule = str()
-        # for key, value in self.weekly_schedule.items():
-        #     schledule += value
-        return schledule
+        day_key = datetime.now().date()
+        if day_key not in self.day_of_week:
+            raise Exception_day('В расписании нет такой даты.')
+
+        return str(self.weekly_schedule[day_key])
