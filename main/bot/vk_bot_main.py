@@ -1,6 +1,8 @@
 import vk_api.vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from bot.config import main_token  # создать config.py спеременной main_token='написать токен здесь'
+from parser_url.parser import Parser
+from bot.bot_command import COMMAND_INPUT_URL
 
 vk_session = vk_api.VkApi(token=main_token)  # подключение токена
 longpoll = VkBotLongPoll(vk_session, 205640140)  # грубо говоря само подключение
@@ -22,9 +24,14 @@ for event in longpoll.listen():
         if event.from_chat:
             id = event.chat_id
             msg = event.obj['message']['text']
+            print("Пользователь написал - ", msg)
             # username = get_user_name(event.message.from_id) # не работает надо придумать как пофиксить
             if msg == '[club205640140|test_bot_ssau] help':
                 sender(id, 'sometext')
+            if msg == COMMAND_INPUT_URL:
+                pass
+                # sender(id, '')
+                # Parser(msg)
 
 '''
 1)нужно добавить список команд
