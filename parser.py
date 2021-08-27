@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from parser_url.settings_parser import HEADER
+from settings_parser import HEADER
 from datetime import datetime
 
 """

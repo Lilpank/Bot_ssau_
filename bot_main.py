@@ -1,7 +1,7 @@
 import vk_api.vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
-from parser_url.parser import Parser
-from bot.bot_command import COMMAND_INPUT_URL, COMMAND_HELP
+from parser import Parser
+from bot_command import COMMAND_INPUT_URL, COMMAND_HELP
 
 main_token = 'be379e58a443e1d026987e3a2ff89b0b38920cc0e21d9a38ff0f0abb71e9fae2ad92e86de9e8d3b00be5b'
 
