@@ -68,4 +68,4 @@ class Parser:
         if day_key not in self.day_of_week:
             raise Exception_day('В расписании нет такой даты.')
 
-        return str(self.weekly_schedule[day_key])
+        return str(self.weekly_schedule[day_key].values())
