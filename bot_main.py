@@ -1,4 +1,4 @@
-import vk_api.vk_api, vk
+import vk_api.vk_api
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from bot.config import main_token  # создать config.py спеременной main_token='написать токен здесь'
 from parser_url.parser import Parser
